@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a08">
+<title>KLUSX — All Sports. One World.</title>
+<style>
+:root{--bg:#080a08;--panel:#121512;--line:#292e29;--lime:#c7ff35;--muted:#92988f;--white:#f6f7f2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+header{padding:18px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:900;letter-spacing:1px}
+.mark{background:var(--lime);color:#080a08;padding:7px 10px;font-size:23px;font-weight:900}
+.live{font-size:10px;color:var(--lime);letter-spacing:1px}
+nav{display:flex;overflow-x:auto;gap:7px;padding:13px 15px;border-bottom:1px solid var(--line)}
+nav button,.smallbtn{border:1px solid var(--line);border-radius:6px;background:#121512;color:#ddd;padding:10px 14px;white-space:nowrap;font-weight:bold}
+nav button.active{background:var(--lime);color:#080a08;border-color:var(--lime)}
+main{max-width:850px;margin:auto;padding:20px 15px 35px}
+.eyebrow{color:var(--lime);font-size:11px;font-weight:bold;letter-spacing:2px}
+h1{font-size:clamp(38px,9vw,66px);line-height:.96;letter-spacing:-2px;margin:15px 0}
+h1 span{color:var(--lime)}
+.intro{color:var(--muted);line-height:1.6;font-size:14px;max-width:480px}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:28px 0 13px}
+h2{font-size:17px;margin:0;letter-spacing:.3px}
+.demo{font-size:9px;color:var(--lime);border:1px solid #52651d;padding:5px 7px;border-radius:3px}
+.match{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:17px;margin-bottom:12px}
+.matchtop{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px}
+.teams{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin:19px 0}
+.team{font-size:17px;font-weight:bold}
+.score{font-size:18px;text-align:right;font-weight:bold}
+.detail{color:var(--muted);font-size:12px;line-height:1.5}
+.actions{display:flex;gap:8px;margin-top:15px}
+.smallbtn{font-size:11px;cursor:pointer;padding:9px 12px}
+.smallbtn.primary{background:var(--lime);color:#080a08;border-color:var(--lime)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.stat{padding:14px 10px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.stat strong{display:block;font-size:24px;color:var(--lime)}
+.stat small{display:block;color:var(--muted);font-size:10px;margin-top:7px}
+.standings{width:100%;border-collapse:collapse;font-size:12px}
+.standings th,.standings td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--line)}
+.standings th{color:var(--muted);font-size:10px}
+.standings td:last-child,.standings th:last-child{text-align:right}
+.note{color:var(--muted);font-size:11px;line-height:1.6;margin-top:12px}
+footer{border-top:1px solid var(--line);padding:23px 15px;text-align:center;color:var(--muted);font-size:11px}
+#message{color:var(--lime);font-size:12px;margin-top:12px}
+@media(min-width:600px){main{padding-top:30px}.match{padding:22px}.team{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span class="mark">K</span> KLUSX</div>
+  <div class="live">● SPORTS DESK</div>
+</header>
+<nav aria-label="Sports">
+  <button class="active" data-sport="Cricket">🏏 Cricket</button>
+  <button data-sport="Football">⚽ Football</button>
+  <button data-sport="Basketball">🏀 Basketball</button>
+  <button data-sport="Tennis">🎾 Tennis</button>
+  <button data-sport="Favorites">★ Saved</button>
+</nav>
+<main>
+  <div class="eyebrow">THE WORLD OF SPORT, IN ONE PLACE</div>
+  <h1>ALL SPORTS.<br><span>ONE WORLD.</span></h1>
+  <p class="intro">Every match. Every moment. Every sport. Your home for scores, match updates and the stories behind the game.</p>
+  <div class="stats">
+    <div class="stat"><strong id="matchCount">03</strong><small>MATCH CARDS</small></div>
+    <div class="stat"><strong>04</strong><small>SPORTS</small></div>
+    <div class="stat"><strong id="savedCount">00</strong><small>SAVED</small></div>
+  </div>
+  <div class="sectionhead"><h2 id="sectionTitle">CRICKET CENTRE</h2><span class="demo">DEMO DATA</span></div>
+  <div id="matches"></div>
+  <div id="message" aria-live="polite"></div>
+  <section id="standingsSection">
+    <div class="sectionhead"><h2>STANDINGS WITH STAKES</h2><span class="demo">SAMPLE</span></div>
+    <div class="match" style="overflow-x:auto">
+      <table class="standings">
+        <thead><tr><th>TEAM</th><th>PLAYED</th><th>PTS</th></tr></thead>
+        <tbody>
+          <tr><td>01 &nbsp; Mumbai Indians</td><td>14</td><td>18</td></tr>
+          <tr><td>02 &nbsp; Rajasthan Royals</td><td>14</td><td>17</td></tr>
+          <tr><td>03 &nbsp; Chennai Super Kings</td><td>14</td><td>16</td></tr>
+          <tr><td>04 &nbsp; Royal Challengers</td><td>14</td><td>14</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Illustrative standings only — not current official rankings.</p>
+    </div>
+  </section>
+  <section>
+    <div class="sectionhead"><h2>READ THE GAME</h2></div>
+    <div class="match">
+      <div class="eyebrow">THE KLUSX TAKE</div>
+      <h2 style="font-size:22px;margin:12px 0">More than a score.</h2>
+      <p class="intro">The tactics, the turning points and the moments that change everything. Follow the game beyond the scoreboard.</p>
+      <p class="note">Sports stories and analysis coming soon.</p>
+    </div>
+  </section>
+</main>
+<footer><strong style="color:var(--lime)">KLUSX</strong><p>ALL SPORTS. ONE WORLD.</p><p>Independent sports dashboard · Demo version</p></footer>
+<script>
+const data={
+ Cricket:[
+ {league:"INTERNATIONAL CRICKET · TEST",a:"India",b:"Australia",scoreA:"342/6",scoreB:"188",detail:"Example score · Not a live match"},
+ {league:"T20 CRICKET · SAMPLE",a:"Team Alpha",b:"Team Bravo",scoreA:"176/5",scoreB:"162/8",detail:"Illustrative scorecard"},
+ {league:"ODI CRICKET · SAMPLE",a:"Team Blue",b:"Team Gold",scoreA:"245/7",scoreB:"Yet to bat",detail:"Illustrative match"}
+ ],
+ Football:[
+ {league:"LEAGUE FOOTBALL · SAMPLE",a:"Real Madrid",b:"Barcelona",scoreA:"2",scoreB:"1",detail:"Example score · Not a live match"},
+ {league:"EUROPEAN FOOTBALL · SAMPLE",a:"Arsenal",b:"Liverpool",scoreA:"1",scoreB:"1",detail:"Illustrative score"},
+ {league:"INTERNATIONAL · SAMPLE",a:"Argentina",b:"France",scoreA:"0",scoreB:"0",detail:"Illustrative score"}
+ ],
+ Basketball:[
+ {league:"BASKETBALL · SAMPLE",a:"City Hawks",b:"Metro Bulls",scoreA:"98",scoreB:"92",detail:"Illustrative score"},
+ {league:"BASKETBALL · SAMPLE",a:"North Stars",b:"South Kings",scoreA:"81",scoreB:"85",detail:"Illustrative score"}
+ ],
+ Tennis:[
+ {league:"TENNIS · SAMPLE",a:"Player A",b:"Player B",scoreA:"6 · 4",scoreB:"4 · 3",detail:"Fictional match example"}
+ ]
+};
+let sport="Cricket";
+let saved=JSON.parse(localStorage.getItem("klusxSaved")||"[]");
+const matches=document.getElementById("matches");
+function render(){
+ const list=sport==="Favorites"?Object.values(data).flat().filter(m=>saved.includes(m.a+"-"+m.b)):data[sport]||[];
+ document.getElementById("sectionTitle").textContent=sport==="Favorites"?"SAVED MATCHES":sport.toUpperCase()+" CENTRE";
+ document.getElementById("matchCount").textContent=String(list.length).padStart(2,"0");
+ document.getElementById("savedCount").textContent=String(saved.length).padStart(2,"0");
+ document.getElementById("standingsSection").style.display=sport==="Cricket"?"block":"none";
+ matches.innerHTML="";
+ if(!list.length){matches.innerHTML='<div class="match"><p class="intro">No saved matches yet. Choose a match and tap ☆ Save.</p></div>';return}
+ list.forEach(m=>{
+  const key=m.a+"-"+m.b;
+  const el=document.createElement("article");
+  el.className="match";
+  el.innerHTML=`<div class="matchtop"><span>${m.league}</span><span class="demo">DEMO</span></div>
+  <div class="teams"><div><div class="team">${m.a}</div><div class="detail">Home / Team A</div></div><div class="score">${m.scoreA}</div>
+  <div><div class="team">${m.b}</div><div class="detail">Away / Team B</div></div><div class="score">${m.scoreB}</div></div>
+  <div class="detail">${m.detail}</div>
+  <div class="actions"><button class="smallbtn primary" data-action="details">Match details</button><button class="smallbtn" data-action="save">${saved.includes(key)?"★ Saved":"☆ Save"}</button></div>`;
+  el.querySelector('[data-action="save"]').onclick=()=>{
+   saved=saved.includes(key)?saved.filter(x=>x!==key):[...saved,key];
+   localStorage.setItem("klusxSaved",JSON.stringify(saved));
+   document.getElementById("message").textContent="Your saved matches have been updated.";
+   render();
+  };
+  el.querySelector('[data-action="details"]').onclick=()=>{
+   document.getElementById("message").textContent=m.a+" vs "+m.b+" — "+m.detail+". Official live data is not connected.";
+  };
+  matches.appendChild(el);
+ });
+}
+document.querySelectorAll("nav button").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");sport=btn.dataset.sport;
+ document.getElementById("message").textContent="";
+ render();
+}));
+render();
+</script>
+</body>
+</html>
